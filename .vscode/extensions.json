@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint", // ESLint support
+    "esbenp.prettier-vscode", // Prettier formatting
+    "formulahendry.auto-rename-tag", // Auto rename paired HTML/JSX tags
+    "formulahendry.auto-close-tag", // Auto close tags
+    "streetsidesoftware.code-spell-checker", // Spell checker
+    "dsznajder.es7-react-js-snippets" // React code snippets
+  ]
+}
