@@ -1,57 +1,90 @@
-# React + Vite
+# Musicale - Music Streaming Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern music streaming dashboard built with React, Vite, and Tailwind CSS.
 
-## Description
+**Live Preview:** [https://music-app-dashboard-lac.vercel.app/](https://music-app-dashboard-lac.vercel.app/)
 
-Currently, two official plugins are available:
+## Screenshots
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses
-  [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast
-  Refresh
+### Login / Sign Up
 
-## Table of Contents
+![Login Form](src/assets/images/screenshots/Login%20Form.png)
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [Import Order Guidelines](#import-order-guidelines)
+### Dashboard
+
+![Dashboard](src/assets/images/screenshots/Dashboard.png)
+
+### Browse
+
+![Browse](src/assets/images/screenshots/Browse.png)
+
+### Playlist
+
+![Playlist](src/assets/images/screenshots/Playlist.png)
+
+### Radio
+
+![Radio](src/assets/images/screenshots/Radio.png)
+
+## Tech Stack
+
+- **React 19** with TypeScript
+- **Vite** for fast development and builds
+- **Tailwind CSS 4** for styling
+- **React Router** for client-side routing
+- **TanStack Query** for data fetching
+- **Zustand** for state management
+- **React Hook Form** + **Zod** for form handling and validation
+- **Sentry** for error monitoring
 
 ## Installation
 
-Clone this repository. You will need node and npm installed globally on your machine.
+Clone this repository. You will need Node.js and Yarn installed globally on your machine.
 
-**Installation:**
-
-```
+```bash
 git clone <repository_url>
-
-cd <project_directory>
-
+cd music_app_dashboard
 yarn install
 ```
 
 ## Usage
 
-**To Start Server:**
+**Start the dev server:**
 
-```
+```bash
 yarn dev
 ```
 
-**View it in your browser:**
+**View in browser:**
 
 ```
-Open your browser and go to
-
-http://localhost:3000/app
+http://localhost:3000
 ```
 
-**To build the project for production:**
+**Build for production:**
 
-```
+```bash
 yarn build
+```
+
+## Environment Variables
+
+Create a `.env` file in the project root with the following variables:
+
+```env
+VITE_BACKEND_BASE_URL=<your_backend_url>
+VITE_ENV=development
+VITE_SENTRY=<sentry_flag>
+VITE_ENCRYPTED_KEY=<your_encryption_key>
+```
+
+Optional Sentry configuration:
+
+```env
+VITE_SENTRY_DSN=<your_sentry_dsn>
+VITE_SENTRY_SAMPLE_RATE=0.5
+VITE_SENTRY_REPLAYS_SESSION_SAMPLE_RATE=0.1
+VITE_REPLAYS_ON_ERROR_SAMPLE_RATE=1.0
 ```
 
 ## Contributing
@@ -70,15 +103,20 @@ Contributions are welcome! Please follow these steps:
 
 When importing files in the project, follow this structure:
 
-1. Built-in modules (e.g., react, react-dom) should be imported at the top.
-2. Built-in modules (e.g., fs, path in Node.js) should be imported at the top.
-3. Add a blank line after the built-in and external imports.
-4. Internal files should be imported after the blank line and should always use the # alias.
+1. Built-in modules (e.g., `react`, `react-dom`) at the top.
+2. External npm packages next.
+3. Add a blank line after built-in and external imports.
+4. Internal files should use the `#` alias.
 
-```
- Built-in modules import React from 'react'; import ReactDOM from 'react-dom/client';
+```ts
+// Built-in modules
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 
- External npm packages import lodash from 'lodash';
+// External npm packages
+import lodash from 'lodash';
 
- Internal files import Button from '#/components/Button'; import utils from '#/utils/helpers';
+// Internal files
+import Button from '#/components/Button';
+import utils from '#/utils/helpers';
 ```
