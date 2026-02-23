@@ -36,7 +36,7 @@ const Login = (): JSX.Element => {
       <div className='bg-white w-3/6 justify-center flex flex-col p-16'>
         <h1 className='font-medium text-4xl'>Create Account</h1>
         <div className='flex w-42 pt-8 justify-between items-center'>
-          {SOCIAL_ICONS.map((Icon) => (
+          {SOCIAL_ICONS.map(Icon => (
             <Button key={Icon.displayName} size='icon' className='rounded-full bg-theme-primary'>
               <Icon />
             </Button>

@@ -1,7 +1,7 @@
 import { Heart, Music, Users } from 'lucide-react';
 
 import Avatar from '#/assets/images/Avatar.png';
-import Folder from '#/assets/svgs/folder.svg';
+// import Folder from '#/assets/svgs/folder.svg';
 const stats = [
   { label: 'Friends', count: 50, icon: Users, color: 'bg-indigo-100 text-indigo-500' },
   { label: 'Likes', count: 120, icon: Heart, color: 'bg-pink-100 text-pink-500' },
@@ -32,11 +32,11 @@ const RightPanel = () => (
     </div>
 
     <div className='mt-10 w-full rounded-2xl bg-theme-light-100 p-6 pt-13 relative text-center'>
-      <img
+      {/* <img
         src={Folder}
         alt='Folder'
         className='mx-auto absolute left-1/2 -translate-x-1/2 -top-8 size-16 object-contain'
-      />
+      /> */}
       <p className='text-sm text-theme-dark-700'>
         Upgrade to <span className='font-bold'>PRO</span> for more benefits
       </p>
