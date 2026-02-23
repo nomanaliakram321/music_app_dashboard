@@ -3,8 +3,8 @@ import { RADIO_STATIONS } from '#/constants';
 const Radio = () => {
   return (
     <div className='mt-6 grid grid-cols-3 gap-9'>
-      {RADIO_STATIONS.map((station, index) => (
-        <div key={`${station.seed}-${index}`} className='cursor-pointer mt-2'>
+      {RADIO_STATIONS.map((station) => (
+        <div key={station.seed} className='cursor-pointer mt-2'>
           <div
             className={`group relative flex  h-40 justify-center  overflow-hidden shadow-xl rounded-sm ${station.bg} pt-6`}
           >

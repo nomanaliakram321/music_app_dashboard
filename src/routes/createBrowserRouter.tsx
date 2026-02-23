@@ -47,11 +47,11 @@ export const router = createBrowserRouter(
       >
         <Route path={ROUTES.HOME} element={<LazyComponent Component={Home} />} />
         <Route path={ROUTES.BROWSE} element={<LazyComponent Component={Browse} />} />
-        <Route path={ROUTES.RADIO} element={<LazyComponent Component={Radio} />} /> 
-        <Route path={ROUTES.ARTIST} element={<LazyComponent Component={Artist} />} /> 
-        <Route path={ROUTES.ALBUMS} element={<LazyComponent Component={Albums} />} /> 
-       
-        <Route path="*" element={<Navigate to={'/'} replace />} />
+        <Route path={ROUTES.RADIO} element={<LazyComponent Component={Radio} />} />
+        <Route path={ROUTES.ARTIST} element={<LazyComponent Component={Artist} />} />
+        <Route path={ROUTES.ALBUMS} element={<LazyComponent Component={Albums} />} />
+
+        <Route path='*' element={<Navigate to={'/'} replace />} />
       </Route>
     </>
   )

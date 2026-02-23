@@ -1,5 +1,5 @@
-import { LucideIcon } from "lucide-react";
-import { FieldError, UseFormRegisterReturn } from "react-hook-form";
+import type { LucideIcon } from 'lucide-react';
+import type { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 interface FormFieldProps {
   icon: LucideIcon;

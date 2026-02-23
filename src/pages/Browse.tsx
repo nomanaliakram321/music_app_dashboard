@@ -1,19 +1,19 @@
-import { JSX, useState } from 'react';
+import type { JSX } from 'react';
+import { useState } from 'react';
+
 import Browse from '#/components/browse/Browse';
 import { BROWSE_TABS } from '#/constants';
-
-
 
 const BrowsePage = (): JSX.Element => {
   const [activeTab, setActiveTab] = useState<(typeof BROWSE_TABS)[number]>(BROWSE_TABS[0]);
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-theme-dark-900">Browse</h1>
+      <h1 className='text-2xl font-bold text-theme-dark-900'>Browse</h1>
 
       {/* Tabs */}
-      <div className="mt-4 flex gap-8 border-b border-theme-light-300">
-        {BROWSE_TABS.map((tab) => (
+      <div className='mt-4 flex gap-8 border-b border-theme-light-300'>
+        {BROWSE_TABS.map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -27,8 +27,7 @@ const BrowsePage = (): JSX.Element => {
           </button>
         ))}
       </div>
-        <Browse/>
-    
+      <Browse />
     </div>
   );
 };

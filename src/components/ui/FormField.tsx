@@ -1,8 +1,14 @@
-import { FormFieldProps } from "#/types/common/formfield.types";
+import type { FormFieldProps } from '#/types/common/formfield.types';
 
-
-
-const FormField = ({ icon: Icon, error, registration, placeholder, type = 'text', autoComplete, id }: FormFieldProps) => (
+const FormField = ({
+  icon: Icon,
+  error,
+  registration,
+  placeholder,
+  type = 'text',
+  autoComplete,
+  id,
+}: FormFieldProps) => (
   <div>
     <div
       className={`flex items-center gap-2 px-3 py-2 w-90 rounded-md border bg-theme-light-100 ${

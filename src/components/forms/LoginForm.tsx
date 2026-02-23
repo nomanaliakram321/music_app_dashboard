@@ -2,6 +2,7 @@ import type { JSX } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { AxiosError } from 'axios';
+import { Lock, Mail, User } from 'lucide-react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 
@@ -11,7 +12,6 @@ import { useLoginMutation } from '#/data/auth/mutations/login';
 import type { LoginFormData } from '#/schemas/loginFormSchema';
 import { loginFormSchema } from '#/schemas/loginFormSchema';
 import env from '#env';
-import { Lock, Mail, User } from 'lucide-react';
 
 const LoginForm = (): JSX.Element => {
   const { mutate: login, isPending, error } = useLoginMutation();
@@ -45,14 +45,14 @@ const LoginForm = (): JSX.Element => {
           autoComplete='username'
         />
       </div>
-        <FormField
-          id='username'
-          icon={Mail}
-          error={errors.username}
-          registration={register('username')}
-          placeholder='Email'
-          autoComplete='email'
-        />
+      <FormField
+        id='username'
+        icon={Mail}
+        error={errors.username}
+        registration={register('username')}
+        placeholder='Email'
+        autoComplete='email'
+      />
       <FormField
         id='password'
         icon={Lock}

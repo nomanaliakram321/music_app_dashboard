@@ -1,4 +1,5 @@
-import { JSX } from 'react';
+import type { JSX } from 'react';
+
 import Radio from '#/components/Radio/Radio';
 
 const RadioPage = (): JSX.Element => {

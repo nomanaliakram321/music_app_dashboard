@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { apiEndpoints, ROUTES } from '#/constants';
+import { apiEndpoints } from '#/constants';
 import { POST } from '#/constants';
 import { performRequest } from '#/services/apiClient';
 import { useAuthStore } from '#/store';

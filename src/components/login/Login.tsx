@@ -1,8 +1,9 @@
-import type { JSX } from 'react/jsx-runtime';
-import logoUrl from '#/assets/svgs/logo.svg';
-import { Button } from '../ui/Button';
 import { Facebook, Linkedin, Twitter } from 'lucide-react';
+import type { JSX } from 'react/jsx-runtime';
+
+import logoUrl from '#/assets/svgs/logo.svg';
 import LoginForm from '../forms/LoginForm';
+import { Button } from '../ui/Button';
 
 const SOCIAL_ICONS = [Facebook, Twitter, Linkedin] as const;
 
@@ -35,8 +36,8 @@ const Login = (): JSX.Element => {
       <div className='bg-white w-3/6 justify-center flex flex-col p-16'>
         <h1 className='font-medium text-4xl'>Create Account</h1>
         <div className='flex w-42 pt-8 justify-between items-center'>
-          {SOCIAL_ICONS.map((Icon, index) => (
-            <Button key={index} size='icon' className='rounded-full bg-theme-primary'>
+          {SOCIAL_ICONS.map((Icon) => (
+            <Button key={Icon.displayName} size='icon' className='rounded-full bg-theme-primary'>
               <Icon />
             </Button>
           ))}

@@ -1,9 +1,9 @@
-import { Download, Globe, Headphones, Heart, History, Home, Music, Radio, UserRound } from "lucide-react";
+import { Download, Globe, Headphones, Heart, History, Home, Music, Radio, UserRound } from 'lucide-react';
 
 export const ROUTES = {
   LOGIN: '/login',
   HOME: '/',
-  BROWSE:'/browse',
+  BROWSE: '/browse',
   RADIO: '/radio',
   ARTIST: '/artist',
   ALBUMS: '/albums',
@@ -12,7 +12,6 @@ export const ROUTES = {
   DOWNLOADED: '/downloaded',
   PLAYLIST: '/playlist',
 };
-
 
 export const NAV_ITEMS = [
   { label: 'Home', icon: Home, to: '/' },
