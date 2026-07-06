@@ -1,0 +1,121 @@
+NAVIGATION & STATE PERSISTENCE IMPROVEMENTS
+============================================
+
+IMPLEMENTED FEATURES:
+
+1. SMART BACK NAVIGATION
+   - Back button now navigates to where user came from
+   - From Calendar → Album Detail → Back goes to Calendar (not Albums)
+   - From Albums → Album Detail → Back goes to Albums
+   - Preserves context and state
+
+2. CALENDAR MONTH PERSISTENCE
+   - Selected month is saved to sessionStorage
+   - When navigating back to Calendar, month is restored
+   - Month persists across page refreshes
+   - Example: View January → Click album → Back → Still on January
+
+3. ALBUMS PAGE PERSISTENCE
+   - Current page number saved to sessionStorage
+   - Search query saved to sessionStorage
+   - When navigating back, page and search are restored
+   - Example: Page 3, search "drake" → Click album → Back → Still page 3, "drake"
+
+4. DELETE NAVIGATION
+   - After deleting album, navigates back to origin
+   - Deleted from Calendar → Returns to Calendar
+   - Deleted from Albums → Returns to Albums
+   - Triggers refresh to update the list
+
+HOW IT WORKS:
+
+Navigation State Flow:
+1. User clicks album from Calendar/Albums
+2. Navigation state is passed: { from: 'calendar', month: 1 }
+3. Album Detail receives and stores this state
+4. Back button uses state to navigate correctly
+5. Target page restores its saved state
+
+SessionStorage Keys:
+- 'calendar_month' - Current calendar month (0-11)
+- 'albums_page' - Current albums page number
+- 'albums_search' - Current search query
+
+USER EXPERIENCE:
+
+Before:
+- Click album from Calendar → Back goes to Albums (wrong!)
+- Navigate to page 5 → Click album → Back goes to page 1 (lost!)
+- Search "drake" → Click album → Back clears search (annoying!)
+- View March → Click album → Back shows January (confusing!)
+
+After:
+✓ Click album from Calendar → Back goes to Calendar (correct!)
+✓ Navigate to page 5 → Click album → Back shows page 5 (preserved!)
+✓ Search "drake" → Click album → Back keeps "drake" (maintained!)
+✓ View March → Click album → Back shows March (consistent!)
+
+TECHNICAL DETAILS:
+
+Calendar.tsx:
+- Saves month to sessionStorage on change
+- Restores month from navigation state or sessionStorage
+- Passes navigation state when clicking album
+- Handles refresh from navigation state
+
+Albums.tsx:
+- Saves page and search to sessionStorage
+- Restores from sessionStorage on mount
+- Passes navigation state when clicking album
+- Maintains state across navigations
+
+AlbumDetail.tsx:
+- Receives navigation state via location.state
+- handleBack() function determines correct destination
+- Delete function navigates to correct origin
+- Back button uses smart navigation
+
+BENEFITS:
+
+1. Better UX - Users don't lose their place
+2. Intuitive - Back button works as expected
+3. Persistent - State survives page refreshes
+4. Context-aware - Knows where user came from
+5. Consistent - Same behavior across all pages
+
+TESTING:
+
+Test Case 1: Calendar Navigation
+1. Go to Calendar
+2. Navigate to March
+3. Click any album
+4. Click Back
+Expected: Returns to Calendar on March
+
+Test Case 2: Albums Pagination
+1. Go to Albums
+2. Navigate to page 3
+3. Click any album
+4. Click Back
+Expected: Returns to Albums page 3
+
+Test Case 3: Albums Search
+1. Go to Albums
+2. Search for "drake"
+3. Click any album
+4. Click Back
+Expected: Returns to Albums with "drake" search
+
+Test Case 4: Delete from Calendar
+1. Go to Calendar (January)
+2. Click album
+3. Delete album
+Expected: Returns to Calendar (January), album removed
+
+Test Case 5: Delete from Albums
+1. Go to Albums (page 2)
+2. Click album
+3. Delete album
+Expected: Returns to Albums (page 2), album removed
+
+All navigation is now context-aware and state-persistent!
