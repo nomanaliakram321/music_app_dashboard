@@ -1,30 +1,20 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
-import tailwindcss from '@tailwindcss/vite';
-import path from 'path';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import path from "path";
 
-export default defineConfig({
-  base: '/',
-  plugins: [
-    react(),
-    tailwindcss(),
-  ],
+// https://vitejs.dev/config/
+export default defineConfig(({ mode }) => ({
+  server: {
+    host: "::",
+    port: 8080,
+    hmr: {
+      overlay: false,
+    },
+  },
+  plugins: [react()],
   resolve: {
     alias: {
-      '#': path.resolve(__dirname, './src'),
-      '#env': path.resolve(__dirname, './env.mjs'),
+      "@": path.resolve(__dirname, "./src"),
     },
   },
-  server: {
-    host: true,
-    port: 3000,
-  },
-  build: {
-    sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: undefined,
-      },
-    },
-  },
-});
+}));

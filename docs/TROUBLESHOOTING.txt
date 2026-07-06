@@ -1,0 +1,158 @@
+TROUBLESHOOTING GUIDE - Nothing is Working
+==========================================
+
+PROBLEM: After running the new schema, nothing works - no albums, no events, no data.
+
+ROOT CAUSE: Your new database is EMPTY. The schema creates the structure but doesn't migrate your old data.
+
+SOLUTION - Follow these steps in order:
+
+STEP 1: VERIFY DATABASE CONNECTION
+-----------------------------------
+1. Open browser console (F12)
+2. Look for "Supabase Config:" log
+3. Should show:
+   - url: https://eqwromenzktewzvimljl.supabase.co
+   - hasKey: true
+   - keyLength: 271
+
+If this is wrong, check your .env file.
+
+STEP 2: TEST DATABASE IS WORKING
+---------------------------------
+1. Go to Supabase SQL Editor
+2. Run: test-database.sql
+3. Check results:
+   - Tables should exist: albums, events, favorites, profiles, app_users
+   - Views should exist: albums_by_month_day, events_by_month_day
+   - RLS should be false for all tables
+   - All counts should be 0 (empty database)
+   - Test insert should work
+   - Test view should return the test album
+
+If any of these fail, re-run your schema SQL.
+
+STEP 3: ADD TEST DATA
+---------------------
+1. Go to Supabase SQL Editor
+2. Run: add-test-data.sql
+3. This adds 5 test albums and events
+4. Refresh your admin panel
+5. You should now see:
+   - 5 albums in Albums page
+   - Albums in Calendar (Jan, Feb, Mar)
+   - Events in Events page
+
+If this works, your database is fine!
+
+STEP 4: IMPORT YOUR REAL DATA
+------------------------------
+Option A: CSV Upload
+1. Go to Upload page in admin panel
+2. Click "Select CSV File"
+3. Choose your albums CSV
+4. Preview and confirm
+5. Albums will be imported
+6. Events will auto-generate
+
+Option B: Manual SQL Import
+1. Export your old database albums to CSV
+2. Use a tool to convert CSV to SQL INSERT statements
+3. Run the INSERT statements in Supabase SQL Editor
+
+STEP 5: VERIFY EVERYTHING WORKS
+--------------------------------
+Test each feature:
+
+✓ Albums Page:
+  - Should show albums grid
+  - Search should work
+  - Pagination should work
+  - Click album to see details
+
+✓ Album Detail:
+  - Should show album info
+  - Edit should work
+  - Delete should work
+  - Should navigate back after delete
+
+✓ Calendar:
+  - Should show albums by month/day
+  - Click day to see albums
+  - Should work across all months
+
+✓ Events:
+  - Should show events by month
+  - Click row to see albums
+
+✓ Upload:
+  - CSV upload should work
+  - Manual add should work
+  - Image upload should work
+
+✓ Users:
+  - Should show empty list (no mobile users yet)
+
+COMMON ERRORS AND FIXES
+------------------------
+
+Error: "No albums found"
+Fix: Database is empty. Run add-test-data.sql or import your data.
+
+Error: "Failed to fetch albums"
+Fix: Check Supabase URL and key in .env file.
+
+Error: "RLS policy violation"
+Fix: Run: ALTER TABLE albums DISABLE ROW LEVEL SECURITY;
+
+Error: "View does not exist"
+Fix: Re-run the schema SQL to create views.
+
+Error: "Cannot read properties of null"
+Fix: Database returned no data. Add test data first.
+
+Error: "Image upload failed"
+Fix: Run create-storage-bucket.sql to create the bucket.
+
+QUICK FIX COMMANDS
+------------------
+
+-- Disable RLS on all tables
+ALTER TABLE albums DISABLE ROW LEVEL SECURITY;
+ALTER TABLE events DISABLE ROW LEVEL SECURITY;
+ALTER TABLE favorites DISABLE ROW LEVEL SECURITY;
+ALTER TABLE profiles DISABLE ROW LEVEL SECURITY;
+ALTER TABLE app_users DISABLE ROW LEVEL SECURITY;
+
+-- Recreate views
+DROP VIEW IF EXISTS albums_by_month_day;
+CREATE VIEW albums_by_month_day AS
+SELECT *, 
+  EXTRACT(MONTH FROM release_date)::INT AS month,
+  EXTRACT(DAY FROM release_date)::INT AS day
+FROM albums;
+
+DROP VIEW IF EXISTS events_by_month_day;
+CREATE VIEW events_by_month_day AS
+SELECT *,
+  EXTRACT(MONTH FROM event_date)::INT AS month,
+  EXTRACT(DAY FROM event_date)::INT AS day
+FROM events;
+
+-- Check what's in the database
+SELECT 'albums' as table_name, COUNT(*) FROM albums
+UNION ALL
+SELECT 'events', COUNT(*) FROM events;
+
+STILL NOT WORKING?
+------------------
+
+1. Check browser console for errors
+2. Check Supabase logs in dashboard
+3. Verify .env file has correct credentials
+4. Try clearing browser cache
+5. Try incognito/private window
+6. Check if old Supabase project is still running
+
+The most common issue is: DATABASE IS EMPTY
+Solution: Import your data using CSV upload or SQL INSERT statements.

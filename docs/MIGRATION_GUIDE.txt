@@ -1,0 +1,92 @@
+DATABASE MIGRATION GUIDE
+========================
+
+You've successfully updated the code to work with the new database schema.
+
+STEPS TO COMPLETE MIGRATION:
+
+1. RUN THE NEW SCHEMA
+   - Go to Supabase SQL Editor
+   - Copy and paste the entire schema you provided
+   - Execute it
+   - This creates all tables, views, indexes, and triggers
+
+2. CREATE STORAGE BUCKET
+   - Go to Supabase SQL Editor
+   - Run the file: create-storage-bucket.sql
+   - This creates the 'album-images' bucket for image uploads
+
+   OR manually in Supabase Dashboard:
+   - Go to Storage section
+   - Click "New bucket"
+   - Name: album-images
+   - Public: Yes
+   - File size limit: 5MB
+   - Allowed MIME types: image/png, image/jpeg, image/jpg, image/webp
+
+3. VERIFY CHANGES
+   - Check that all tables exist: albums, events, favorites, profiles, app_users
+   - Check that views exist: albums_by_month_day, events_by_month_day
+   - Check that storage bucket 'album-images' exists
+   - Check that RLS is disabled on all tables
+
+4. TEST THE APPLICATION
+   - Login to admin panel
+   - Go to Upload page
+   - Try adding an album manually with image upload
+   - Verify image uploads to storage
+   - Check that album appears in Albums list
+   - Check that album appears in Calendar
+
+WHAT CHANGED:
+
+Code Changes:
+✓ Updated Event interface (id instead of event_id, added txt_color, updated_at)
+✓ Added image upload functionality to Upload page
+✓ Created storage.ts utility for Supabase Storage
+✓ Added image preview in upload form
+✓ App initializes storage bucket on load
+✓ Updated .env with new Supabase credentials
+
+Database Changes:
+✓ New schema with proper indexes and triggers
+✓ Views for month/day filtering
+✓ Auto-update timestamps with triggers
+✓ Profile creation on user signup
+✓ RLS disabled for development
+
+New Features:
+✓ Upload album images from form (max 5MB)
+✓ Images stored in Supabase Storage
+✓ Image preview before upload
+✓ Can still use URL or upload file
+✓ Auto-generated public URLs
+
+TROUBLESHOOTING:
+
+If images don't upload:
+1. Check storage bucket exists
+2. Check bucket is public
+3. Check file size < 5MB
+4. Check file type is image/*
+5. Check browser console for errors
+
+If old data doesn't show:
+1. The new database is empty - you need to re-import
+2. Use CSV upload to import old albums
+3. Events will auto-regenerate
+
+If calendar doesn't work:
+1. Check albums_by_month_day view exists
+2. Check albums have valid release_date
+3. Run: SELECT COUNT(*) FROM albums_by_month_day;
+
+NEXT STEPS:
+
+1. Run the schema SQL
+2. Run the storage bucket SQL
+3. Test image upload
+4. Import your album data via CSV
+5. Verify everything works
+
+The application is now ready to use with the new database!
